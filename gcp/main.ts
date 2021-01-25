@@ -12,6 +12,12 @@ class eksdStack extends cdktf.TerraformStack {
     const credentials = fs.existsSync(credentialsPath) ? fs.readFileSync(credentialsPath).toString() : '{}'
     const local = 'asia-east1';
     const projectId = process.env.PROJECT_ID;
+    new gcp.GoogleProvider(this, 'GoogleAuth', {
+      region: local,
+      zone: local+'-c',
+      project: projectId,
+      credentials
+    });
     const sa = new gcp.ServiceAccount(this, 'rke2-sa', {
       accountId: 'rke2-sa',
       displayName: 'rke2-sa',
@@ -22,16 +28,17 @@ class eksdStack extends cdktf.TerraformStack {
       location: 'ASIA',
       forceDestroy: true,
     });
-    new gcp.StorageBucketIamMember(this, `${bucketName}-member`,{
-      bucket: bucketName,
-      role: 'roles/storage.admin',
-      member: `serviceAccount:${sa.email}`,
+    const policy = new gcp.DataGoogleIamPolicy(this, 'storageAdmin', {
+      binding: [{
+        role: 'roles/storage.admin',
+        members: [
+          `serviceAccount:${sa.email}`
+        ],
+      }]
     });
-    new gcp.GoogleProvider(this, 'GoogleAuth', {
-      region: local,
-      zone: local+'-c',
-      project: projectId,
-      credentials
+    new gcp.StorageBucketIamPolicy(this, 'bucketIamPolicy', {
+      bucket: buckect.name,
+      policyData: policy.policyData,
     });
     const network = new gcp.ComputeNetwork(this, 'Network', {
       name: 'cdktf-network'
