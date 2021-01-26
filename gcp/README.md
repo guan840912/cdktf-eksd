@@ -41,6 +41,8 @@ You need
 ```bash
 export PROJECT_ID=${projects-id-xxxxx}
 ```
+*You should give your bucket a new name in `mian.ts` `const bucketName = 'your-shoud-rename-here'`*
+![](./images/maints.png)
 
 ### To deploy
 

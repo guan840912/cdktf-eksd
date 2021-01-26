@@ -7,7 +7,7 @@ import * as gcp from '@cdktf/provider-google';
 class eksdStack extends cdktf.TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const bucketName = 'rke2-bucket-2021'
+    const bucketName = 'your-shoud-rename-here'
     const credentialsPath = path.join(process.cwd(), 'google.json')
     const credentials = fs.existsSync(credentialsPath) ? fs.readFileSync(credentialsPath).toString() : '{}'
     const local = 'asia-east1';
