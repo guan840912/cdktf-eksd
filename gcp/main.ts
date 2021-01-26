@@ -144,6 +144,12 @@ gsutil cp /etc/rancher/rke2/rke2.yaml gs://${bucketName}/
     new cdktf.TerraformOutput(this, 'ip', {
       value: `${eip.address}`,
     });
+    new cdktf.TerraformOutput(this, 'download-kubeconfig', {
+      value: `gsutil cp gs://${bucketName}/rke2.yaml ./`,
+    });
+    new cdktf.TerraformOutput(this, 'try-get-pod', {
+      value: `kubectl top pod  --kubeconfig=rke2.yaml -A`,
+    });
   }
 }
 
