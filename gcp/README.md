@@ -1,6 +1,17 @@
 # CDKTF-EKSD
 This resembles the example for the Google Cloud at [Hashicorp Learn](https://learn.hashicorp.com/terraform/gcp/build)
 
+## Please install `terraform` and `cdktf-cli`
+ - [terraform](https://www.terraform.io/downloads.html)
+ - cdktf-cli: `npm install -g cdktf-cli`
+## version
+```bash
+$ cdktf --version
+0.1.0
+$ terraform -v
+Terraform v0.14.5
+```
+
 ## Usage
 
 Install project dependencies
