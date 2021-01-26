@@ -77,6 +77,7 @@ gsutil cp gs://${bucketName}/rke2.yaml ./
 ```bash
 kubectl top pod  --kubeconfig=rke2.yaml -A
 ```
+![](./images/getpod.png)
 
 ### To destroy
 ```bash
